@@ -3,6 +3,8 @@ import Root from './routes/Root'
 import ErrorPage from './ErrorPage'
 import Login from './pages/Login'
 import Home from './pages/Home'
+import { AuthProvider } from './context/AuthContext'
+import Signup from './pages/Signup'
 
 const router = createBrowserRouter([
   {
@@ -17,13 +19,21 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login />
+      },
+      {
+        path: 'signup',
+        element: <Signup />
       }
     ]
   }
 ])
 
 function App () {
-  return <RouterProvider router={router} />
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  )
 }
 
 export default App
