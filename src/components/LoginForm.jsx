@@ -1,16 +1,19 @@
-import { useId } from 'react'
+import { useContext, useId } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 export default function LoginForm () {
+  const { login } = useContext(AuthContext)
   const userID = useId()
   const passwordID = useId()
   const rememberID = useId()
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const { user, password, remember } = Object.fromEntries(
+    const { user, password } = Object.fromEntries(
       new window.FormData(event.target)
     )
-    console.log({ user, password, remember })
+    login({ user, password })
   }
 
   return (
@@ -87,12 +90,12 @@ export default function LoginForm () {
       </div>
       <p className='text-sm font-light text-gray-500 dark:text-gray-400'>
         ¿No tienes una cuenta?{'  '}
-        <a
-          href='#'
+        <Link
+          to='/signup'
           className='font-medium text-primary-600 hover:underline dark:text-primary-500'
         >
           Registrar
-        </a>
+        </Link>
       </p>
     </form>
   )
