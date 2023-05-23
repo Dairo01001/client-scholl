@@ -1,178 +1,99 @@
-import { useId } from 'react'
+import BloodSelect from '../components/BloodSelect'
+import DocumentSelect from '../components/DocumentSelect'
+import Input from '../components/Input'
+import Select from '../components/Select'
 
 export default function Signup () {
-  const firstNameId = useId()
-  const middleNameId = useId()
-  const surnameId = useId()
-  const secondSurnameId = useId()
-
   return (
     <section className='bg-white dark:bg-gray-900 w-full'>
       <div className='flex flex-col items-center justify-center mx-auto lg:py-0'>
         <div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-2xl xl:p-0 dark:bg-gray-800 dark:border-gray-700'>
           <div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
-            <h1 className='text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white'>
-              Crear una cuenta
+            <h1 className='text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white'>
+              Crea una cuenta
             </h1>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <hr className='border-t border-blue-600 my-4 pb-4' />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                const data = Object.fromEntries(new window.FormData(e.target))
+                console.log(data)
+              }}
+            >
               <div className='grid md:grid-cols-2 md:gap-6'>
-                <div className='relative z-0 w-full mb-6 group'>
-                  <input
-                    type='text'
-                    name='firstName'
-                    id={firstNameId}
-                    className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                    placeholder=' '
-                    required
-                    autoComplete='off'
-                  />
-                  <label
-                    htmlFor={firstNameId}
-                    className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                  >
-                    Primer nombre
-                  </label>
-                </div>
-                <div className='relative z-0 w-full mb-6 group'>
-                  <input
-                    type='text'
-                    name='middleName'
-                    id={middleNameId}
-                    className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                    placeholder=' '
-                    autoComplete='off'
-                  />
-                  <label
-                    htmlFor={middleNameId}
-                    className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                  >
-                    Segundo nombre
-                  </label>
-                </div>
+                <Input type='text' name='firstName' text='Nombre' required />
+                <Input type='text' name='middleName' text='Segundo nombre' />
               </div>
               <div className='grid md:grid-cols-2 md:gap-6'>
-                <div className='relative z-0 w-full mb-6 group'>
-                  <input
-                    type='text'
-                    name='surname'
-                    id={surnameId}
-                    className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                    placeholder=' '
-                    autoComplete='off'
-                    required
-                  />
-                  <label
-                    htmlFor='floating_first_name'
-                    className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                  >
-                    Primer apellido
-                  </label>
-                </div>
-                <div className='relative z-0 w-full mb-6 group'>
-                  <input
-                    type='text'
-                    name='secondSurname'
-                    id={secondSurnameId}
-                    className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                    placeholder=' '
-                    autoComplete='off'
-                  />
-                  <label
-                    htmlFor='secondSurname'
-                    className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                  >
-                    Segundo apellido
-                  </label>
-                </div>
+                <Input type='text' name='surname' text='Apellido' required />
+                <Input
+                  type='text'
+                  name='secondSurname'
+                  text='Segundo apellido'
+                />
               </div>
-              <div className='relative z-0 w-full mb-6 group'>
-                <input
-                  type='email'
-                  name='floating_email'
-                  id='floating_email'
-                  className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                  placeholder=' '
+              <div className='grid md:grid-cols-2 md:gap-6'>
+                <Select
+                  name='gender'
+                  text='Género'
+                  options={[
+                    { id: 'Male', name: 'Masculino' },
+                    { id: 'Female', name: 'Femenino' }
+                  ]}
+                />
+                <BloodSelect />
+              </div>
+              <div className='grid md:grid-cols-2 md:gap-6'>
+                <Input
+                  type='date'
+                  name='birthDate'
+                  text='Fecha de nacimiento'
                   required
                 />
-                <label
-                  htmlFor='floating_email'
-                  className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                >
-                  Email address
-                </label>
+                <Input
+                  type='text'
+                  name='profession'
+                  text='Profesión'
+                  required
+                />
               </div>
-              <div className='relative z-0 w-full mb-6 group'>
-                <input
+              <div className='grid md:grid-cols-2 md:gap-6'>
+                <DocumentSelect />
+                <Input
+                  type='number'
+                  text='Número documento'
+                  name='documentNumber'
+                  required
+                />
+              </div>
+              <Input type='email' name='email' text='Correo' required />
+              <Input
+                type='tel'
+                required
+                name='phone'
+                text='Teléfono (312-345-6789)'
+                pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
+              />
+              <div className='grid md:grid-cols-2 md:gap-6'>
+                <Input
                   type='password'
-                  name='floating_password'
-                  id='floating_password'
-                  className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                  placeholder=' '
+                  name='password'
+                  text='Contraseña'
                   required
                 />
-                <label
-                  htmlFor='floating_password'
-                  className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                >
-                  Password
-                </label>
-              </div>
-              <div className='relative z-0 w-full mb-6 group'>
-                <input
+                <Input
                   type='password'
-                  name='repeat_password'
-                  id='floating_repeat_password'
-                  className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                  placeholder=' '
+                  name='password1'
+                  text='Repite la Contraseña'
                   required
                 />
-                <label
-                  htmlFor='floating_repeat_password'
-                  className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                >
-                  Confirm password
-                </label>
               </div>
-              <div className='grid md:grid-cols-2 md:gap-6'>
-                <div className='relative z-0 w-full mb-6 group'>
-                  <input
-                    type='tel'
-                    pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
-                    name='floating_phone'
-                    id='floating_phone'
-                    className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                    placeholder=' '
-                    required
-                  />
-                  <label
-                    htmlFor='floating_phone'
-                    className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                  >
-                    Phone number (123-456-7890)
-                  </label>
-                </div>
-                <div className='relative z-0 w-full mb-6 group'>
-                  <input
-                    type='text'
-                    name='floating_company'
-                    id='floating_company'
-                    className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer'
-                    placeholder=' '
-                    required
-                  />
-                  <label
-                    htmlFor='floating_company'
-                    className='peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'
-                  >
-                    Company (Ex. Google)
-                  </label>
-                </div>
-              </div>
+
               <button
                 type='submit'
-                className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+                className='inline-flex capitalize text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'
               >
-                Submit
+                registrarse
               </button>
             </form>
           </div>
