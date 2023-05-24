@@ -1,6 +1,5 @@
 import { createContext, useState } from 'react'
 import PropTypes from 'prop-types'
-import Swal from 'sweetalert2'
 import { loginService } from '../services/login'
 
 export const AuthContext = createContext()
@@ -9,16 +8,15 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [isAuth, setIsAuth] = useState(false)
 
-  const login = ({ user, password }) => {
-    loginService({ user, password })
-      .then((data) => {
-        setUser(data)
-        setIsAuth(true)
-        Swal.fire('¡Bienvenido de vuelta!', '', 'success')
-      })
-      .catch((err) => {
-        Swal.fire('Opss!', err.message, 'warning')
-      })
+  const login = async ({ user, password }) => {
+    try {
+      const data = await loginService({ user, password })
+      setUser(data)
+      setIsAuth(true)
+      return data
+    } catch (err) {
+      throw new Error(err.message)
+    }
   }
 
   const logout = () => {

@@ -1,19 +1,38 @@
 import { useContext, useId } from 'react'
 import { AuthContext } from '../context/AuthContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useRemenber } from '../hooks/useRemenber'
+import Swal from 'sweetalert2'
 
 export default function LoginForm () {
   const { login } = useContext(AuthContext)
+  const { userStorage, addUserStorage } = useRemenber()
+  const navigate = useNavigate()
   const userID = useId()
   const passwordID = useId()
   const rememberID = useId()
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const { user, password } = Object.fromEntries(
+    const { user, password, remember } = Object.fromEntries(
       new window.FormData(event.target)
     )
+
+    if (remember) {
+      addUserStorage({ user, password })
+    } else {
+      addUserStorage({ user: '', password: '' })
+    }
+
     login({ user, password })
+      .then(() => {
+        Swal.fire('', '', 'success')
+        event.target.reset()
+        navigate('/')
+      })
+      .catch((err) => {
+        Swal.fire('Ups!!', err.message, 'warning')
+      })
   }
 
   return (
@@ -29,6 +48,7 @@ export default function LoginForm () {
           type='text'
           name='user'
           autoComplete='off'
+          defaultValue={userStorage.user}
           id={userID}
           className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
           placeholder='Jon Doe'
@@ -46,6 +66,7 @@ export default function LoginForm () {
           type='password'
           name='password'
           autoComplete='off'
+          defaultValue={userStorage.password}
           id={passwordID}
           placeholder='••••••••'
           className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -60,6 +81,7 @@ export default function LoginForm () {
               aria-describedby='remember'
               name='remember'
               type='checkbox'
+              defaultChecked
               className='w-4 h-4 border hover:cursor-pointer border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800'
               required=''
             />
@@ -94,7 +116,7 @@ export default function LoginForm () {
           to='/signup'
           className='font-medium text-primary-600 hover:underline dark:text-primary-500'
         >
-          Registrar
+          Registrarse
         </Link>
       </p>
     </form>

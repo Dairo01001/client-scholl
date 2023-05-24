@@ -1,9 +1,48 @@
+import Swal from 'sweetalert2'
 import BloodSelect from '../components/BloodSelect'
 import DocumentSelect from '../components/DocumentSelect'
 import Input from '../components/Input'
 import Select from '../components/Select'
+import { createdTeacher } from '../services/teacher'
 
 export default function Signup () {
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const data = Object.fromEntries(new window.FormData(event.target))
+
+    const {
+      password,
+      password1,
+      phone,
+      bloodTypeId,
+      documentTypeId,
+      birthDate,
+      ...newTeacher
+    } = data
+
+    if (password !== password1) {
+      return Swal.fire('Opps!', 'La contraseña deben coincidir', 'warning')
+    }
+
+    createdTeacher({
+      teacher: {
+        ...newTeacher,
+        password,
+        phone: phone.replaceAll('-', ''),
+        bloodTypeId: Number(bloodTypeId),
+        documentTypeId: Number(documentTypeId),
+        birthDate: new Date('1994-04-25').toISOString()
+      }
+    })
+      .then((data) => {
+        console.log(data)
+        event.target.reset()
+      })
+      .catch((err) => {
+        Swal.fire('Opss!', err.message, 'warning')
+      })
+  }
+
   return (
     <section className='bg-white dark:bg-gray-900 w-full'>
       <div className='flex flex-col items-center justify-center mx-auto lg:py-0'>
@@ -13,13 +52,7 @@ export default function Signup () {
               Crea una cuenta
             </h1>
             <hr className='border-t border-blue-600 my-4 pb-4' />
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                const data = Object.fromEntries(new window.FormData(e.target))
-                console.log(data)
-              }}
-            >
+            <form onSubmit={handleSubmit}>
               <div className='grid md:grid-cols-2 md:gap-6'>
                 <Input type='text' name='firstName' text='Nombre' required />
                 <Input type='text' name='middleName' text='Segundo nombre' />
