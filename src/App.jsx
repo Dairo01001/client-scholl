@@ -1,15 +1,16 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Root from './routes/Root'
+import PublicRoot from './routes/PublicRoot'
 import ErrorPage from './ErrorPage'
 import Login from './pages/Login'
 import Home from './pages/Home'
-import { AuthProvider } from './context/AuthContext'
 import Signup from './pages/Signup'
+import { useContext } from 'react'
+import { AuthContext } from './context/AuthContext'
 
-const router = createBrowserRouter([
+const publicRouter = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: <PublicRoot />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -28,11 +29,21 @@ const router = createBrowserRouter([
   }
 ])
 
+const privateRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <h1>DashBoard</h1>,
+    errorElement: <ErrorPage />
+  }
+])
+
 function App () {
+  const { isAuth } = useContext(AuthContext)
+
   return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <>
+      <RouterProvider router={isAuth ? privateRouter : publicRouter} />
+    </>
   )
 }
 

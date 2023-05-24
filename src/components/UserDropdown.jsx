@@ -1,10 +1,7 @@
-import { useContext, useState } from 'react'
-import { AuthContext } from '../context/AuthContext'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function UserDropdown () {
-  const { user, logout } = useContext(AuthContext)
-  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleDropdown = () => {
@@ -36,76 +33,22 @@ export default function UserDropdown () {
         } bg-white divide-y divide-gray-100 rounded-lg shadow min-w-fit dark:bg-gray-700 dark:divide-gray-600`}
         onClick={toggleDropdown}
       >
-        {user && (
-          <>
-            <div className='px-4 py-3 text-sm text-gray-900 dark:text-white'>
-              <div>{user.name}</div>
-              {user.email && (
-                <div className='font-medium truncate'>{user.email}</div>
-              )}
-            </div>
-            <ul className='py-2 text-sm text-gray-700 dark:text-gray-200'>
-              <li>
-                <a
-                  href='#'
-                  className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#'
-                  className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-                >
-                  Settings
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#'
-                  className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-                >
-                  Earnings
-                </a>
-              </li>
-            </ul>
-          </>
-        )}
-        {user
-          ? (
-            <div className='py-1'>
-              <button
-                onClick={() => {
-                  logout()
-                  navigate('/')
-                }}
-                className='block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
-              >
-                Salir
-              </button>
-            </div>
-            )
-          : (
-            <>
-              <div className='py-1'>
-                <Link
-                  to='/signup'
-                  className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
-                >
-                  Registrarse
-                </Link>
-              </div>
-              <div className='py-1'>
-                <Link
-                  to='/login'
-                  className='block w-32 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
-                >
-                  Iniciar sesión
-                </Link>
-              </div>
-            </>
-            )}
+        <div className='py-1'>
+          <Link
+            to='/signup'
+            className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+          >
+            Registrarse
+          </Link>
+        </div>
+        <div className='py-1'>
+          <Link
+            to='/login'
+            className='block w-32 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white'
+          >
+            Iniciar sesión
+          </Link>
+        </div>
       </div>
     </div>
   )
