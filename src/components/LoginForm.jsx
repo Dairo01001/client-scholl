@@ -26,7 +26,13 @@ export default function LoginForm () {
 
     login({ user, password })
       .then(() => {
-        Swal.fire('', '', 'success')
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Bienvenido',
+          showConfirmButton: false,
+          timer: 1500
+        })
         event.target.reset()
         navigate('/')
       })
