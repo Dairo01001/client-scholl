@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Signup from './pages/Signup'
 import { useContext } from 'react'
 import { AuthContext } from './context/AuthContext'
+import PrivateRoot from './routes/PrivateRoot'
 
 const publicRouter = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const publicRouter = createBrowserRouter([
 const privateRouter = createBrowserRouter([
   {
     path: '/',
-    element: <h1>DashBoard</h1>,
+    element: <PrivateRoot />,
     errorElement: <ErrorPage />
   }
 ])

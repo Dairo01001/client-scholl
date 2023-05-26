@@ -1,13 +1,13 @@
 import { Outlet } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import UserDropdown from '../components/UserDropdown'
+import DrawerTeacher from '../components/DrawerTeacher'
 
-export default function PublicRoot () {
+export default function PrivateRoot () {
   return (
     <>
       <Nav>
-        <UserDropdown />
+        <DrawerTeacher />
       </Nav>
       <main style={{ minHeight: '85vh' }} className='flex justify-center items-center'>
         <Outlet />
