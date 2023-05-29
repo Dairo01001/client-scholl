@@ -7,6 +7,8 @@ import Signup from './pages/Signup'
 import { useContext } from 'react'
 import { AuthContext } from './context/AuthContext'
 import PrivateRoot from './routes/PrivateRoot'
+import Dashboard from './pages/Dashboard'
+import FormStudent from './components/FormStudent'
 
 const publicRouter = createBrowserRouter([
   {
@@ -34,7 +36,16 @@ const privateRouter = createBrowserRouter([
   {
     path: '/',
     element: <PrivateRoot />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '',
+        element: <Dashboard />
+      }, {
+        path: 'register',
+        element: <FormStudent/>
+      }
+    ]
   }
 ])
 

@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 export default function DrawerTeacher () {
   const [open, setOpen] = useState(false)
@@ -124,8 +125,8 @@ export default function DrawerTeacher () {
               </a>
             </li>
             <li>
-              <a
-                href='#'
+              <Link
+                to='/register'
                 className='flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
               >
                 <svg
@@ -142,7 +143,7 @@ export default function DrawerTeacher () {
                   />
                 </svg>
                 <span className='flex-1 ml-3 whitespace-nowrap'>Users</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a
